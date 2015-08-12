@@ -18,5 +18,18 @@ object HBaseClient {
      connection.close()
   }
 
-  def getTable(table: String) = connection.getTable(table)
+  def getTable(table: String): HTableInterface = connection.getTable(table)
+
+  def withTable[T](tableName: String)(f: HTableInterface => T): T = {
+      var table: Option[HTableInterface] = None
+      try {
+          table = Some(getTable(tableName))
+          f(table.get)
+      } finally {
+          if(table.isDefined){
+            println(s"Closing table $tableName")
+            table.get.close()
+          }
+      }
+  }
 }

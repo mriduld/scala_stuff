@@ -1,8 +1,7 @@
 package hbase.client
 
-import hbase.client.HBaseClient.{close, getTable}
+import hbase.client.HBaseClient._
 import org.scalatest.{BeforeAndAfter, FunSpec}
-import scala.util.control.Exception._
 
 class TestHBaseClient extends FunSpec with BeforeAndAfter {
   after {
@@ -11,15 +10,9 @@ class TestHBaseClient extends FunSpec with BeforeAndAfter {
 
   describe ("HbaseConnection") {
     it("should connect and close Hbase") {
-        val table = getTable("users")
-        nonFatalCatch.andFinally
-                    {
-                      println("Closing Table")
-                      table.close()
-                    }
-                     {
-                       println("Got table... "+ table)
-                     }
+        withTable("users"){table =>
+           println(s"Got table $table")
+        }
     }
   }
 }
