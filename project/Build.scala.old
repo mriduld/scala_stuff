@@ -1,0 +1,16 @@
+import sbt._
+import Keys._
+
+object ProjectBuild extends Build {
+
+	lazy val root = Project(id = "scala-stuff", base = file("."))
+			.aggregate(core, twitbase)
+
+	lazy val core = Project(id = "core", base = file("core"))
+                  .settings(commonSettings: _*)
+
+	lazy val twitbase = Project(id = "twitbase", base = file("twitbase"))
+                      .settings(commonSettings: _*)
+
+  lazy val commonSettings = Defaults.coreDefaultSettings
+}
