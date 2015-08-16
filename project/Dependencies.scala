@@ -3,18 +3,18 @@ import sbt._
 object Dependencies {
   lazy val coreTests = Seq(
     "org.scalatest" %% "scalatest" % "3.0.0-M7" % "test",
-    "junit" % "junit" % "4.11" % "test",
-    "com.novocode" % "junit-interface" % "0.9" % "test->default",
-    "org.mockito" % "mockito-core" % "1.9.5"
+    "org.scalamock" %% "scalamock-scalatest-support" % "3.2.2" % "test",
+    "junit" % "junit" % "4.11" % "test"
   )
 
+
   lazy val hbase = Seq(
-    "org.apache.hbase" % "hbase-client" % "0.98.6-hadoop2",
-    "org.apache.hbase" % "hbase-common" % "0.98.6-hadoop2",
-    "org.apache.hbase" % "hbase-server" % "0.98.6-hadoop2" excludeAll(
+    "org.apache.hbase" % "hbase-client" % "1.1.1",
+    "org.apache.hbase" % "hbase-common" % "1.1.1",
+    "org.apache.hbase" % "hbase-server" % "1.1.1" excludeAll(
           ExclusionRule(organization = "com.sun.jersey"),
           ExclusionRule(organization = "org.apache.hadoop")
       ),
-    "org.apache.hadoop" % "hadoop-common" % "2.2.0"
+    "org.apache.hadoop" % "hadoop-common" % "2.7.0"
   )
 }
