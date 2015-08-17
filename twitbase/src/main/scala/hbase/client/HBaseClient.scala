@@ -2,33 +2,19 @@ package hbase.client
 
 import java.io.Closeable
 
-import org.apache.hadoop.hbase.TableName
+import org.apache.hadoop.hbase.{HBaseConfiguration, TableName}
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.util.Bytes
 
 object HBaseClient {
-  lazy val connection = ConnectionFactory.createConnection()
+  lazy val connection = HConnectionManager.createConnection(HBaseConfiguration.create())
 
   def close(): Unit = {
      println("Closing HBase Connection Manager")
      connection.close()
   }
 
-  def getTable(table: Array[Byte]): Table = connection.getTable(TableName.valueOf(table))
-
-  def withTable[T](tableName: String)(f: Table => T): T = {
-      var table: Option[Table] = None
-      try {
-          table = Some(getTable(Bytes.toBytes(tableName)))
-          f(table.get)
-      } finally {
-          if(table.isDefined){
-            println(s"Closing table $tableName")
-            table.get.close()
-          }
-      }
-  }
-
+  def getTable(table: Array[Byte]) = connection.getTable(TableName.valueOf(table))
 
   def using[A,B <: Closeable](resource: B)(fn: B => A): A = try {
     fn(resource)
@@ -38,4 +24,7 @@ object HBaseClient {
        resource.close()
      }
   }
+
+  implicit def stringFromBytes(bytes: Array[Byte]): String = Bytes.toString(bytes)
+  implicit def longFromBytes(bytes: Array[Byte]): Long = if(bytes == null) 0L else Bytes.toLong(bytes)
 }

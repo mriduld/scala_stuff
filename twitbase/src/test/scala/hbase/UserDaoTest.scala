@@ -2,8 +2,9 @@ package hbase
 
 import model.User
 import org.scalamock.scalatest.MockFactory
-import org.scalatest.FunSuite
+import org.scalatest.{DoNotDiscover, FunSuite}
 
+@DoNotDiscover
 class UserDaoTest extends FunSuite with MockFactory {
   test("Test Mock UserDao") {
      val userDao = stub[UserDao]
@@ -11,7 +12,7 @@ class UserDaoTest extends FunSuite with MockFactory {
      userDao.getUser _ when "id-1"  returns Some(User("id-1", "test-user", "test@test.com", "password", 1L))
      val user1 = userDao.getUser("test")
      val user2 = userDao.getUser("id-1")
-     assert(user1 == None)
+     assert(user1 isEmpty)
      assert(user2.get.id == "id-1")
   }
 

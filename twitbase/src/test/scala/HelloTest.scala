@@ -1,4 +1,4 @@
-import org.scalatest.{FunSpec, FlatSpec, Matchers}
+import org.scalatest.{FunSpec, Matchers}
 
 class HelloTest extends FunSpec with Matchers{
   describe ("Addition") {

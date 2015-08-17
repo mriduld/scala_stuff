@@ -8,13 +8,16 @@ object Dependencies {
   )
 
 
+  val hbaseVersion = "0.98.6-hadoop2"
+  val hadoopVersion = "2.2.0"
+
   lazy val hbase = Seq(
-    "org.apache.hbase" % "hbase-client" % "1.1.1",
-    "org.apache.hbase" % "hbase-common" % "1.1.1",
-    "org.apache.hbase" % "hbase-server" % "1.1.1" excludeAll(
+    "org.apache.hbase" % "hbase-client" % hbaseVersion,
+    "org.apache.hbase" % "hbase-common" % hbaseVersion,
+    "org.apache.hbase" % "hbase-server" % hbaseVersion excludeAll(
           ExclusionRule(organization = "com.sun.jersey"),
           ExclusionRule(organization = "org.apache.hadoop")
       ),
-    "org.apache.hadoop" % "hadoop-common" % "2.7.0"
+    "org.apache.hadoop" % "hadoop-common" % hadoopVersion
   )
 }
