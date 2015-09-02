@@ -9,7 +9,7 @@ object Dependencies {
 
 
   val hbaseVersion = "0.98.6-hadoop2"
-  val hadoopVersion = "2.2.0"
+  val hadoopVersion = "2.4.0"
 
   lazy val hbase = Seq(
     "org.apache.hbase" % "hbase-client" % hbaseVersion,
@@ -19,5 +19,17 @@ object Dependencies {
           ExclusionRule(organization = "org.apache.hadoop")
       ),
     "org.apache.hadoop" % "hadoop-common" % hadoopVersion
+  )
+
+  lazy val guava = Seq(
+    "com.google.guava" % "guava" % "19.0-rc1"
+  )
+
+  lazy val crunch = Seq(
+
+  )
+
+  lazy val avroDeps = Seq(
+    "org.apache.avro" % "avro-compiler" % "1.7.7" % "compile"
   )
 }

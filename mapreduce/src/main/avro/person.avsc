@@ -1,0 +1,9 @@
+{
+"namespace": "avro.test",
+"name": "Person",
+"type": "record",
+"fields": [
+  {"name": "name", "type": ["string", "null"] },
+  {"name": "age", "type": "int"},
+  {"name": "siblingnames", "type" : ["null", { "type": "array", "items": "string" }], "default": null } ]
+}
